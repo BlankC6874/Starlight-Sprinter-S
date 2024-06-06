@@ -154,14 +154,26 @@ class Industrial extends Phaser.Scene {
 
         // player jump
         // note that we need body.blocked rather than body.touching b/c the former applies to tilemap tiles and the latter to the "ground"
-        if(!my.sprite.player.body.blocked.down) {
+        if (!my.sprite.player.body.blocked.down) {
             my.sprite.player.anims.play('jump');
         }
-        if(my.sprite.player.body.blocked.down && Phaser.Input.Keyboard.JustDown(cursors.up)) {
-            my.sprite.player.body.setVelocityY(this.JUMP_VELOCITY);
+        if (my.sprite.player.body.blocked.down) {
+            this.jumpCount = 0;  // Reset jump count
         }
 
-        if(Phaser.Input.Keyboard.JustDown(this.rKey)) {
+        // Double Jumping
+        if (Phaser.Input.Keyboard.JustDown(cursors.up) && this.jumpCount < 2) {
+            my.sprite.player.body.setVelocityY(this.JUMP_VELOCITY);
+            this.jumpCount++;
+            if (this.jumpCount === 1) {
+                this.jump1SFX.play();
+            } else if (this.jumpCount === 2) {
+                this.jump2SFX.play();
+            }
+            my.sprite.player.anims.play('jump');
+        }
+
+        if (Phaser.Input.Keyboard.JustDown(this.rKey)) {
             this.scene.restart();
         }
 
