@@ -11,6 +11,7 @@ class Food extends Phaser.Scene {
         this.JUMP_VELOCITY = -600;
         this.PARTICLE_VELOCITY = 50;
         this.SCALE = 2.0;
+        this.jumpCount = 0; 
     }
 
     preload() {
@@ -31,6 +32,9 @@ class Food extends Phaser.Scene {
 
         // Create a SFX
         this.collectSFX = this.sound.add('collect');
+        // Create Jump SFX
+        this.jump1SFX = this.sound.add('jump1');
+        this.jump2SFX = this.sound.add('jump2');
 
         // Create a layer
         this.backgroundLayer = this.map.createLayer("Background", this.tilesetBackground, 0, 0);

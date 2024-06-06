@@ -43,6 +43,7 @@ class LoadFood extends Phaser.Scene {
         this.loadText = this.add.text(this.cameras.main.centerX, 150, 'Loading Level-2: Food...', { font: '40px Arial', fill: '#ffffff' }).setOrigin(0.5);
         this.loadText = this.add.text(this.cameras.main.centerX, 200, 'Please wait...', { font: '20px Arial', fill: '#ffffff' }).setOrigin(0.5);
 
+        
         // this.anims.create({
             // key: 'walk',
             // frames: this.anims.generateFrameNames('platformer_characters', {
