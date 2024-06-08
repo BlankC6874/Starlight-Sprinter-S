@@ -7,9 +7,12 @@ class LoadFarm extends Phaser.Scene {
         this.load.setPath("./assets/");
 
         this.load.audio('jump2', 'Jump2.ogg');
-
+        
+        this.load.multiatlas("kenny-particles", "kenny-particles.json");
+        
         // Load characters spritesheet
         this.load.atlas("platformer_characters", "tilemap-characters-packed.png", "tilemap-characters-packed.json");
+
 
         // Load tilemap information
         this.load.image("tilemap_tiles_background", "tilemap-backgrounds_packed.png"); // Packed backgrounds tilemap
@@ -42,7 +45,6 @@ class LoadFarm extends Phaser.Scene {
         // kenny-particles.json internally has a list of the png files
         // The multiatlas was created using TexturePacker and the Kenny
         // Particle Pack asset pack.
-        this.load.multiatlas("kenny-particles", "kenny-particles.json");
     }
 
     create() {

@@ -29,6 +29,7 @@ class LoadIndustrial extends Phaser.Scene {
             frameHeight: 18
         });
 
+        
         // Oooh, fancy. A multi atlas is a texture atlas which has the textures spread
         // across multiple png files, so as to keep their size small for use with
         // lower resource devices (like mobile phones).

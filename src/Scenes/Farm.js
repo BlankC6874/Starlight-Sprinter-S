@@ -36,7 +36,17 @@ class Farm extends Phaser.Scene {
         this.collectSFX = this.sound.add('collect');
         // Create Jump SFX
         this.jump2SFX = this.sound.add('jump2');
-        
+        // Jump vfx
+        this.jumpEmitter = this.add.particles(0, 0, "kenny-particles", {
+            frame: ['trace_05.png', 'trace_06.png'],
+            scale: { start: 0.3, end: 0.1 },
+            maxAliveParticles: 200,
+            lifespan: 500,
+            alpha: { start: 1, end: 0.1 },
+            on: false
+        });
+        this.jumpEmitter.stop(); 
+
         // Create a layer
         this.backgroundLayer = this.map.createLayer("Background", this.tilesetBackground, 0, 0);
         this.groundLayer = this.map.createLayer("Ground-n-Platforms", this.tilesetFarm, 0, 0);
@@ -166,18 +176,19 @@ class Farm extends Phaser.Scene {
         }
         if (my.sprite.player.body.blocked.down) {
             this.jumpCount = 0;  // Reset jump count
+            this.jumpEmitter.stop();
         }
 
-        // Double Jumping
         if (Phaser.Input.Keyboard.JustDown(cursors.up) && this.jumpCount < 2) {
             my.sprite.player.body.setVelocityY(this.JUMP_VELOCITY);
             this.jumpCount++;
-            if (this.jumpCount === 1) {
-                this.jump2SFX.play();
-            } else if (this.jumpCount === 2) {
-                this.jump2SFX.play();
-            }
+            this.jump2SFX.play();
+
             my.sprite.player.anims.play('jump');
+            this.jumpEmitter.setPosition(my.sprite.player.x, my.sprite.player.y);
+            this.jumpEmitter.start();
+        } else {
+            this.jumpEmitter.stop();
         }
 
         if (Phaser.Input.Keyboard.JustDown(this.rKey)) {
