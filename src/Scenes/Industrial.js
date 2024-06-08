@@ -15,8 +15,8 @@ class Industrial extends Phaser.Scene {
     }
 
     preload() {
-        this.load.setPath("./assets/");
-        this.load.audio('collect', 'impactMetal_light_003.ogg');
+    //    this.load.setPath("./assets/");
+    //    this.load.audio('collect', 'impactMetal_light_003.ogg');
     }
 
     create() {
