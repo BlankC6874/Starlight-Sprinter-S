@@ -170,13 +170,13 @@ class Food extends Phaser.Scene {
             my.sprite.player.body.setVelocityY(this.JUMP_VELOCITY);
             this.jumpCount++;
             if (this.jumpCount === 1) {
-                this.jump1SFX.play();
+                this.jump2SFX.play();
             } else if (this.jumpCount === 2) {
                 this.jump2SFX.play();
             }
             my.sprite.player.anims.play('jump');
         }
-
+        
         if (Phaser.Input.Keyboard.JustDown(this.rKey)) {
             this.scene.restart();
         }

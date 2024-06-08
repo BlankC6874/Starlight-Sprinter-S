@@ -170,7 +170,7 @@ class Industrial extends Phaser.Scene {
             my.sprite.player.body.setVelocityY(this.JUMP_VELOCITY);
             this.jumpCount++;
             if (this.jumpCount === 1) {
-                this.jump1SFX.play();
+                this.jump2SFX.play();
             } else if (this.jumpCount === 2) {
                 this.jump2SFX.play();
             }

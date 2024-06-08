@@ -35,7 +35,6 @@ class Farm extends Phaser.Scene {
         // Create a SFX
         this.collectSFX = this.sound.add('collect');
         // Create Jump SFX
-        this.jump1SFX = this.sound.add('jump1');
         this.jump2SFX = this.sound.add('jump2');
         
         // Create a layer
@@ -174,7 +173,7 @@ class Farm extends Phaser.Scene {
             my.sprite.player.body.setVelocityY(this.JUMP_VELOCITY);
             this.jumpCount++;
             if (this.jumpCount === 1) {
-                this.jump1SFX.play();
+                this.jump2SFX.play();
             } else if (this.jumpCount === 2) {
                 this.jump2SFX.play();
             }
