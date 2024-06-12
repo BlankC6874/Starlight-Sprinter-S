@@ -1,7 +1,13 @@
-**Starlight Sprinter**
+**Starlight Sprinter S**
 
 A 2-D pixel-art platformer game using Arcade Phsyics in Phaser.
 Visual assets courtesy of [Kenny Assets](https://kenney.nl/assets), with gratitude.
+
+**Update 6/11/24:**
+1. Added 3 different keys that are collectible in Farm, Food, Industrial but invisible at first
+2. Once you collect all coins/gas in current level, the key spawns (you go to next level, you MISS it)
+3. Once you collect all 3 keys, your fourth scene will be replaced with the **Bonus-level**
+4. Enjoy the new content!
 
 Instruction for play:
 1. Use arrow keys to control player avatar's movement
@@ -14,6 +20,7 @@ Level-design:
 1. Farm       (where you can collect coins)
 2. Foodland   (where you can collect coins)
 3. Industrial (where you can collect gas)
+4. **Bonus-level** BRAND-NEW LEVEL UPDATED GO CHECK IT OUT!!!
 
 Debug mode is not activated, to do this:
 1. clone this repo

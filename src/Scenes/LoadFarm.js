@@ -5,8 +5,13 @@ class LoadFarm extends Phaser.Scene {
 
     preload() {
         this.load.setPath("./assets/");
-
+        
+        // Load audio files
         this.load.audio('jump2', 'Jump2.ogg');
+        this.load.audio('collect', 'impactMetal_light_003.ogg');
+
+        // Load "key" image
+        this.load.image("key", "tile_0027.png");
 
         // Load characters spritesheet
         this.load.atlas("platformer_characters", "tilemap-characters-packed.png", "tilemap-characters-packed.json");

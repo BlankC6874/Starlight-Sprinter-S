@@ -31,12 +31,15 @@ let config = {
     },
     width: 900,
     height: 900,
-    scene: [Title, Credits, Instruction, LoadFarm, Farm, LoadFood, Food, LoadIndustrial, Industrial, GG]
+    scene: [Title, Credits, Instruction, LoadFarm, Farm, LoadFood, Food, LoadIndustrial, Industrial, LoadBonus, Bonus, GG]
 }
 
 var cursors;
 const SCALE = 2.0;
 var my = {sprite: {}, text: {}, vfx: {}};
 let score = 0;
+let keycountFarm = 0;
+let keycountFood = 0;
+let keycountIndustrial = 0;
 
 const game = new Phaser.Game(config);

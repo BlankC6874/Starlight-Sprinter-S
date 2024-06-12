@@ -14,12 +14,6 @@ class Farm extends Phaser.Scene {
         this.jumpCount = 0; 
     }
 
-    preload() {
-        this.load.setPath("./assets/");
-        this.load.audio('collect', 'impactMetal_light_003.ogg');
-
-    }
-
     create() {
         // Create a new tilemap game object which uses 18x18 pixel tiles, and is
         // 45 tiles wide and 25 tiles tall.
@@ -47,7 +41,7 @@ class Farm extends Phaser.Scene {
         });
         this.jumpEmitter.stop(); 
 
-        // Create a layer
+        // Create layers
         this.backgroundLayer = this.map.createLayer("Background", this.tilesetBackground, 0, 0);
         this.groundLayer = this.map.createLayer("Ground-n-Platforms", this.tilesetFarm, 0, 0);
         this.decorationLayer = this.map.createLayer("Decoration", this.tilesetFarm, 0, 0);
@@ -78,14 +72,22 @@ class Farm extends Phaser.Scene {
         this.coinGroup = this.add.group(this.coins);
 
         // set up player avatar
-        my.sprite.player = this.physics.add.sprite(30, 200, "platformer_characters", "tile_0000.png");
+        my.sprite.player = this.physics.add.sprite(30, 300, "platformer_characters", "tile_0000.png");
         my.sprite.player.setCollideWorldBounds(true);
+        
+        // set up key avatar
+        this.key = this.physics.add.sprite(30, 300, "key");
+        this.key.visible = false;
+        this.key.interactable = false;
 
         // Enable collision handling
         this.physics.add.collider(my.sprite.player, this.groundLayer);
+        this.physics.add.collider(this.key, this.groundLayer);
         
-        // Set up score text
+        // Set up texts
         this.scoreText = this.add.text(my.sprite.player.x - 15, my.sprite.player.y - 26, score, { fontSize: '12px', fill: '#FFFFFF' });
+        // this.axisText = this.add.text(my.sprite.player.x - 15, my.sprite.player.y - 16, 'X: ' + my.sprite.player.x + ' Y: ' + my.sprite.player.y, { fontSize: '12px', fill: '#FFFFFF' });
+        this.conditionText = this.add.text(my.sprite.player.x - 15, my.sprite.player.y - 36, 'Collect all coins to spawn the key!', { fontSize: '12px', fill: '#FFFFFF' });
 
         // Handle collision detection with coins
         this.physics.add.overlap(my.sprite.player, this.coinGroup, (obj1, obj2) => {
@@ -133,6 +135,15 @@ class Farm extends Phaser.Scene {
         this.scoreText.setText(score);
         this.scoreText.x = my.sprite.player.x - 15;
         this.scoreText.y = my.sprite.player.y - 26;
+
+        // axis update
+        // this.axisText.setText('X: ' + my.sprite.player.x + ' Y: ' + my.sprite.player.y);
+        // this.axisText.x = my.sprite.player.x - 15;
+        // this.axisText.y = my.sprite.player.y - 16;
+
+        // condition update
+        this.conditionText.x = my.sprite.player.x - 20;
+        this.conditionText.y = my.sprite.player.y - 36;
 
         // player movement
         if(cursors.left.isDown) {
@@ -193,6 +204,22 @@ class Farm extends Phaser.Scene {
 
         if (Phaser.Input.Keyboard.JustDown(this.rKey)) {
             this.scene.restart();
+        }
+
+        // when all coins are collected, spawn the key
+        if(this.coinGroup.getLength() === 0) {
+            this.key.visible = true;
+            this.key.interactable = true;
+            if (keycountFarm === 0){
+                this.conditionText.setText('The key has spawned somewhere.');
+            }
+        }
+
+        // key collection
+        if(this.key.interactable && Phaser.Geom.Intersects.RectangleToRectangle(my.sprite.player.getBounds(), this.key.getBounds())) {
+            this.key.destroy();
+            this.conditionText.setText('Congrats! Proceed to the right to the next scene.');
+            keycountFarm++;
         }
 
         // next scene

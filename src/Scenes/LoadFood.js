@@ -8,21 +8,20 @@ class LoadFood extends Phaser.Scene {
 
         this.load.audio('jump2', 'Jump2.ogg');
 
-
         // Load characters spritesheet
-        this.load.atlas("platformer_characters", "tilemap-characters-packed.png", "tilemap-characters-packed.json");
+        // this.load.atlas("platformer_characters", "tilemap-characters-packed.png", "tilemap-characters-packed.json");
 
         // Load tilemap information
-        this.load.image("tilemap_tiles_background", "tilemap-backgrounds_packed.png"); // Packed backgrounds tilemap
+        // this.load.image("tilemap_tiles_background", "tilemap-backgrounds_packed.png"); // Packed backgrounds tilemap
         this.load.image("tilemap_tiles_food", "tilemap_packed_food.png");             // Packed food tilemap
 
         this.load.tilemapTiledJSON("food", "food.tmj");   // Tilemap in JSON
 
         // this tilemap is used for the background
-        this.load.spritesheet("tilemap_sheet_background", "tilemap-backgrounds_packed.png", {
-            frameWidth: 18,
-            frameHeight: 18
-        });
+        // this.load.spritesheet("tilemap_sheet_background", "tilemap-backgrounds_packed.png", {
+            // frameWidth: 18,
+            // frameHeight: 18
+        // });
 
         // Load the tilemap as a spritesheet for the food scene
         this.load.spritesheet("tilemap_sheet_food", "tilemap_packed_food.png", {
