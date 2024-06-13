@@ -101,8 +101,10 @@ class Farm extends Phaser.Scene {
         
         this.physics.add.overlap(my.sprite.player, my.sprite.enemy, (player, enemy) => {
             enemy.destroy();
+            this.sound.play("explode", {
+                volume: 0.5   // Can adjust volume using this, goes from 0 to 1
+            });
             this.playerHP -= 100;  // Decrease player HP by 10
-
         });
         //set up enemy avatar2
 
@@ -117,6 +119,8 @@ class Farm extends Phaser.Scene {
         this.physics.add.overlap(my.sprite.player, my.sprite.enemy2, (player, enemy) => {
             enemy.destroy();
             this.playerHP -= 50;  // Decrease player HP by 10
+            
+            this.clickSFX.play();
 
         });
         
@@ -144,6 +148,9 @@ class Farm extends Phaser.Scene {
         this.physics.add.overlap(my.sprite.player, this.heartGroup, (obj1, obj2) => {
             obj2.destroy();
             this.playerHP += 20;
+            this.sound.play("heart", {
+                volume: 0.5   // Can adjust volume using this, goes from 0 to 1
+            });
         });
 
 

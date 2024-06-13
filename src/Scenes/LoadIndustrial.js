@@ -7,6 +7,8 @@ class LoadIndustrial extends Phaser.Scene {
         this.load.setPath("./assets/");
         
         this.load.audio('jump2', 'Jump2.ogg');
+        this.load.audio("explode", "explode.ogg");
+        this.load.audio("heart", "heart.ogg");
 
         // Load characters spritesheet
         // this.load.atlas("platformer_characters", "tilemap-characters-packed.png", "tilemap-characters-packed.json");
