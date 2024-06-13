@@ -106,24 +106,7 @@ class Farm extends Phaser.Scene {
             });
             this.playerHP -= 100;  // Decrease player HP by 10
         });
-        //set up enemy avatar2
-
-        //set up patrolling enemy avata2//
-        my.sprite.enemy2 = this.physics.add.sprite(200, 370, "platformer_characters", "tile_0018.png");
-        my.sprite.enemy2.setCollideWorldBounds(true);
-        my.sprite.enemy2.patrolBounds = { left: 150, right: 250 }; // Define patrol range
-        my.sprite.enemy2.patrolSpeed = 50; // Speed at which the enemy patrols
-        my.sprite.enemy2.direction = 1; // Current direction: 1 for right, -1 for left
-        this.physics.add.collider(my.sprite.enemy2, this.groundLayer);
-
-        this.physics.add.overlap(my.sprite.player, my.sprite.enemy2, (player, enemy) => {
-            enemy.destroy();
-            this.playerHP -= 50;  // Decrease player HP by 10
-            
-            this.clickSFX.play();
-
-        });
-        
+  
         
         // set up key avatar
         this.key = this.physics.add.sprite(30, 300, "key");
@@ -198,14 +181,7 @@ class Farm extends Phaser.Scene {
             }
             my.sprite.enemy.setVelocityX(my.sprite.enemy.patrolSpeed * my.sprite.enemy.direction);
         }
-        if (my.sprite.enemy2 && my.sprite.enemy2.active) {
-            if (my.sprite.enemy2.x <= my.sprite.enemy2.patrolBounds.left) {
-                my.sprite.enemy2.direction = 1;  // Turn right
-            } else if (my.sprite.enemy2.x >= my.sprite.enemy2.patrolBounds.right) {
-                my.sprite.enemy2.direction = -1; // Turn left
-            }
-            my.sprite.enemy2.setVelocityX(my.sprite.enemy2.patrolSpeed * my.sprite.enemy2.direction);
-        }
+
         //game over//
         if(this.playerHP <= 0 && this.gameLost == false){
             this.gameLost = true;
