@@ -12,6 +12,8 @@ class Farm extends Phaser.Scene {
         this.PARTICLE_VELOCITY = 50;
         this.SCALE = 2.0;
         this.jumpCount = 0; 
+        this.playerHP = 100;
+        this.gameLost = false;
     }
 
     create() {
@@ -40,6 +42,11 @@ class Farm extends Phaser.Scene {
             on: false
         });
         this.jumpEmitter.stop(); 
+        //hp system//
+        this.HPText = this.add.text(50, 50, "HP:100", {
+            fontFamily: 'Verdana, Geneva, sans-serif',
+            fontSize: 10,
+        });
 
         // Create layers
         this.backgroundLayer = this.map.createLayer("Background", this.tilesetBackground, 0, 0);
@@ -62,18 +69,57 @@ class Farm extends Phaser.Scene {
             key: "tilemap_sheet",
             frame: 151
         });
+        //heart
+        this.heart = this.map.createFromObjects("Objects", {
+            name: "heart",
+            key: "tilemap_sheet",
+            frame: 44
+        });
+
 
         // Since createFromObjects returns an array of regular Sprites, we need to convert 
         // them into Arcade Physics sprites (STATIC_BODY, so they don't move) 
         this.physics.world.enable(this.coins, Phaser.Physics.Arcade.STATIC_BODY);
+        this.physics.world.enable(this.heart, Phaser.Physics.Arcade.STATIC_BODY);
 
         // Create a Phaser group out of the array this.coins
         // This will be used for collision detection below.
         this.coinGroup = this.add.group(this.coins);
+        this.heartGroup = this.add.group(this.heart);
+    
 
-        // set up player avatar
-        my.sprite.player = this.physics.add.sprite(30, 300, "platformer_characters", "tile_0000.png");
+        //set up player avatar
+        my.sprite.player = this.physics.add.sprite(30, 200, "platformer_characters", "tile_0000.png");
         my.sprite.player.setCollideWorldBounds(true);
+        //set up patrolling enemy avata//
+        my.sprite.enemy = this.physics.add.sprite(100, 250, "platformer_characters", "tile_0002.png");
+        my.sprite.enemy.setCollideWorldBounds(true);
+        my.sprite.enemy.patrolBounds = { left: 100, right: 180 }; // Define patrol range
+        my.sprite.enemy.patrolSpeed = 50; // Speed at which the enemy patrols
+        my.sprite.enemy.direction = 1; // Current direction: 1 for right, -1 for left
+        this.physics.add.collider(my.sprite.enemy, this.groundLayer);
+        
+        this.physics.add.overlap(my.sprite.player, my.sprite.enemy, (player, enemy) => {
+            enemy.destroy();
+            this.playerHP -= 100;  // Decrease player HP by 10
+
+        });
+        //set up enemy avatar2
+
+        //set up patrolling enemy avata2//
+        my.sprite.enemy2 = this.physics.add.sprite(200, 370, "platformer_characters", "tile_0018.png");
+        my.sprite.enemy2.setCollideWorldBounds(true);
+        my.sprite.enemy2.patrolBounds = { left: 150, right: 250 }; // Define patrol range
+        my.sprite.enemy2.patrolSpeed = 50; // Speed at which the enemy patrols
+        my.sprite.enemy2.direction = 1; // Current direction: 1 for right, -1 for left
+        this.physics.add.collider(my.sprite.enemy2, this.groundLayer);
+
+        this.physics.add.overlap(my.sprite.player, my.sprite.enemy2, (player, enemy) => {
+            enemy.destroy();
+            this.playerHP -= 50;  // Decrease player HP by 10
+
+        });
+        
         
         // set up key avatar
         this.key = this.physics.add.sprite(30, 300, "key");
@@ -95,6 +141,11 @@ class Farm extends Phaser.Scene {
             score += 100;   // increment score
             this.collectSFX.play();
         });
+        this.physics.add.overlap(my.sprite.player, this.heartGroup, (obj1, obj2) => {
+            obj2.destroy();
+            this.playerHP += 20;
+        });
+
 
         // set up Phaser-provided cursor key input
         cursors = this.input.keyboard.createCursorKeys();
@@ -131,6 +182,40 @@ class Farm extends Phaser.Scene {
     }
 
     update() {
+        //enemy range//
+        if (my.sprite.enemy && my.sprite.enemy.active) {
+            if (my.sprite.enemy.x <= my.sprite.enemy.patrolBounds.left) {
+                my.sprite.enemy.direction = 1;  // Turn right
+            } else if (my.sprite.enemy.x >= my.sprite.enemy.patrolBounds.right) {
+                my.sprite.enemy.direction = -1; // Turn left
+            }
+            my.sprite.enemy.setVelocityX(my.sprite.enemy.patrolSpeed * my.sprite.enemy.direction);
+        }
+        if (my.sprite.enemy2 && my.sprite.enemy2.active) {
+            if (my.sprite.enemy2.x <= my.sprite.enemy2.patrolBounds.left) {
+                my.sprite.enemy2.direction = 1;  // Turn right
+            } else if (my.sprite.enemy2.x >= my.sprite.enemy2.patrolBounds.right) {
+                my.sprite.enemy2.direction = -1; // Turn left
+            }
+            my.sprite.enemy2.setVelocityX(my.sprite.enemy2.patrolSpeed * my.sprite.enemy2.direction);
+        }
+        //game over//
+        if(this.playerHP <= 0 && this.gameLost == false){
+            this.gameLost = true;
+            this.loseText1 = this.add.text(this.cameras.main.worldView.x+240, 130, "You died!", {
+                fontFamily: 'Lucida, monospace',
+                fontSize: 20,
+            });
+            this.loseText3 = this.add.text(this.cameras.main.worldView.x+160, 170, "Press R to restart", {
+                fontFamily: 'Lucida, monospace',
+                fontSize: 20,
+            });
+            this.physics.pause();
+        }
+        //hp text//
+        this.HPText.setText("HP: " + Math.floor(this.playerHP));
+        this.HPText.x = my.sprite.player.x-28;
+        this.HPText.y = my.sprite.player.y-45;
         // score update
         this.scoreText.setText(score);
         this.scoreText.x = my.sprite.player.x - 15;
@@ -144,6 +229,7 @@ class Farm extends Phaser.Scene {
         // condition update
         this.conditionText.x = my.sprite.player.x - 20;
         this.conditionText.y = my.sprite.player.y - 36;
+
 
         // player movement
         if(cursors.left.isDown) {

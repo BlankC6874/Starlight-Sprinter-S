@@ -12,6 +12,8 @@ class Food extends Phaser.Scene {
         this.PARTICLE_VELOCITY = 50;
         this.SCALE = 2.0;
         this.jumpCount = 0; 
+        this.playerHP = 100;
+        this.gameLost = false;
     }
 
     create() {
@@ -60,11 +62,22 @@ class Food extends Phaser.Scene {
             key: "tilemap_sheet_food",
             frame: 13
         });
+        this.heart = this.map.createFromObjects("Objects", {
+            name: "heart",
+            key: "tilemap_sheet",
+            frame: 44
+        });
+        //hp system//
+        this.HPText = this.add.text(50, 50, "HP:100", {
+            fontFamily: 'Verdana, Geneva, sans-serif',
+            fontSize: 10,
+        });
 
         // Since createFromObjects returns an array of regular Sprites, we need to convert 
         // them into Arcade Physics sprites (STATIC_BODY, so they don't move) 
         this.physics.world.enable(this.coins, Phaser.Physics.Arcade.STATIC_BODY);
-
+        this.physics.world.enable(this.heart, Phaser.Physics.Arcade.STATIC_BODY);
+        this.heartGroup = this.add.group(this.heart);
         // Create a Phaser group out of the array this.coins
         // This will be used for collision detection below.
         this.coinGroup = this.add.group(this.coins);
@@ -72,6 +85,26 @@ class Food extends Phaser.Scene {
         // set up player avatar
         my.sprite.player = this.physics.add.sprite(30, 200, "platformer_characters", "tile_0000.png");
         my.sprite.player.setCollideWorldBounds(true);
+        //set up enemy avatar
+
+       
+        this.enemies = this.physics.add.group();
+
+        // Add multiple enemies
+        const enemyPositions = [{ x: 150, y: 300 }, { x: 250, y: 250 }, { x: 500, y: 250 }, { x: 700, y: 300 }];
+        enemyPositions.forEach(pos => {
+            let enemy = this.enemies.create(pos.x, pos.y, "platformer_characters", "tile_0021.png");
+            enemy.setCollideWorldBounds(true);
+            enemy.patrolBounds = { left: pos.x - 25, right: pos.x + 25 };
+            enemy.patrolSpeed = 50;
+            enemy.direction = 1; // 1 for right, -1 for left
+            this.physics.add.collider(enemy, this.groundLayer);
+        });
+        //collide enemy
+        this.physics.add.overlap(my.sprite.player, this.enemies, (player, enemy) => {
+            enemy.destroy();
+            this.playerHP -= 50; // Decrease player HP by 10
+        });
 
         // set up key avatar
         this.key = this.physics.add.sprite(30, 300, "key");
@@ -81,7 +114,7 @@ class Food extends Phaser.Scene {
         // Enable collision handling
         this.physics.add.collider(my.sprite.player, this.groundLayer);
         this.physics.add.collider(this.key, this.groundLayer);
-        
+        this.physics.add.collider(this.enemies, this.groundLayer);
         // Set up score text
         this.scoreText = this.add.text(my.sprite.player.x - 15, my.sprite.player.y - 26, score, { fontSize: '12px', fill: '#FFFFFF' });
         // this.axisText = this.add.text(my.sprite.player.x - 15, my.sprite.player.y - 16, 'X: ' + my.sprite.player.x + ' Y: ' + my.sprite.player.y, { fontSize: '12px', fill: '#FFFFFF' });
@@ -92,6 +125,10 @@ class Food extends Phaser.Scene {
             obj2.destroy(); // remove coin on overlap
             score += 100;   // increment score
             this.collectSFX.play();
+        });
+        this.physics.add.overlap(my.sprite.player, this.heartGroup, (obj1, obj2) => {
+            obj2.destroy();
+            this.playerHP += 20;
         });
 
         // set up Phaser-provided cursor key input
@@ -129,6 +166,33 @@ class Food extends Phaser.Scene {
     }
 
     update() {
+        
+        //patrol
+        this.enemies.children.iterate((enemy) => {
+            if (enemy.x <= enemy.patrolBounds.left) {
+                enemy.direction = 1; // Turn right
+            } else if (enemy.x >= enemy.patrolBounds.right) {
+                enemy.direction = -1; // Turn left
+            }
+            enemy.setVelocityX(enemy.patrolSpeed * enemy.direction);
+        });
+        //gamelost
+        if(this.playerHP <= 0 && this.gameLost == false){
+            this.gameLost = true;
+            this.loseText1 = this.add.text(this.cameras.main.worldView.x+240, 130, "You died!", {
+                fontFamily: 'Lucida, monospace',
+                fontSize: 20,
+            });
+            this.loseText3 = this.add.text(this.cameras.main.worldView.x+160, 170, "Press R to restart", {
+                fontFamily: 'Lucida, monospace',
+                fontSize: 20,
+            });
+            this.physics.pause();
+        }
+        //hp text//
+        this.HPText.setText("HP: " + Math.floor(this.playerHP));
+        this.HPText.x = my.sprite.player.x-28;
+        this.HPText.y = my.sprite.player.y-45;
         // score update
         this.scoreText.setText(score);
         this.scoreText.x = my.sprite.player.x - 15;

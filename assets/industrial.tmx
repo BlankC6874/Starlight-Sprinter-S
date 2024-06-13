@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="45" height="25" tilewidth="18" tileheight="18" infinite="0" nextlayerid="5" nextobjectid="29">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="45" height="25" tilewidth="18" tileheight="18" infinite="0" nextlayerid="5" nextobjectid="32">
  <editorsettings>
   <export target="industrial.tmj" format="json"/>
  </editorsettings>
@@ -248,5 +248,8 @@
   <object id="26" name="gas" gid="11" x="684" y="324" width="18" height="18"/>
   <object id="27" name="gas" gid="11" x="702" y="324" width="18" height="18"/>
   <object id="28" name="gas" gid="11" x="720" y="324" width="18" height="18"/>
+  <object id="29" name="heart" gid="100" x="214.417" y="91.0715" width="18" height="18"/>
+  <object id="30" name="heart" gid="100" x="252.033" y="91.0715" width="18" height="18"/>
+  <object id="31" name="heart" gid="100" x="286.229" y="91.0715" width="18" height="18"/>
  </objectgroup>
 </map>

@@ -1,0 +1,131 @@
+{
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "bonus.tmx": {
+            "scale": 0.8772839506172839,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 405.79791725302556,
+                "y": 225.69659442724455
+            }
+        },
+        "bonus.tmx#tilemap-backgrounds_packed": {
+            "scaleInDock": 1
+        },
+        "bonus.tmx#tilemap_packed": {
+            "scaleInDock": 1
+        },
+        "farm.tmj": {
+            "expandedObjectLayers": [
+                5
+            ],
+            "scale": 1.1558333333333333,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 360.7786589762077,
+                "y": 225.81110310021631
+            }
+        },
+        "farm.tmj#tilemap-backgrounds_packed": {
+            "scaleInDock": 1
+        },
+        "farm.tmj#tilemap_packed": {
+            "scaleInDock": 1
+        },
+        "farm.tmj#tilemap_packed_farm": {
+            "scaleInDock": 1
+        },
+        "farm.tmx": {
+            "expandedObjectLayers": [
+                5
+            ],
+            "scale": 1.1558333333333333,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 218.8896899783706,
+                "y": 131.5068493150685
+            }
+        },
+        "farm.tmx#tilemap-backgrounds_packed": {
+            "scaleInDock": 1
+        },
+        "farm.tmx#tilemap_packed": {
+            "scaleInDock": 1.2043
+        },
+        "farm.tmx#tilemap_packed_farm": {
+            "scaleInDock": 1
+        },
+        "food.tmj": {
+            "scale": 0.8772839506172839,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 405.79791725302556,
+                "y": 225.69659442724458
+            }
+        },
+        "food.tmj#tilemap-backgrounds_packed": {
+            "scaleInDock": 1
+        },
+        "food.tmj#tilemap_packed_food": {
+            "scaleInDock": 1
+        },
+        "food.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 0.8772839506172839,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 406.9377990430622,
+                "y": 202.89895862651278
+            }
+        },
+        "food.tmx#tilemap-backgrounds_packed": {
+            "scaleInDock": 1
+        },
+        "food.tmx#tilemap_packed_food": {
+            "scaleInDock": 1
+        },
+        "industrial.tmj": {
+            "scale": 0.8772839506172839,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 405.79791725302556,
+                "y": 225.69659442724458
+            }
+        },
+        "industrial.tmj#tilemap-backgrounds_packed": {
+            "scaleInDock": 1
+        },
+        "industrial.tmj#tilemap_packed_industrial": {
+            "scaleInDock": 1
+        },
+        "industrial.tmx": {
+            "scale": 0.8772839506172839,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 405.79791725302556,
+                "y": 225.69659442724455
+            }
+        },
+        "industrial.tmx#tilemap-backgrounds_packed": {
+            "scaleInDock": 1
+        },
+        "industrial.tmx#tilemap_packed_industrial": {
+            "scaleInDock": 1
+        }
+    },
+    "last.exportedFilePath": "/Users/fuyu/Documents/CMPM-120/Starlight-Sprinter-S-2/assets",
+    "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
+    "openFiles": [
+    ],
+    "project": "untitled.tiled-project",
+    "recentFiles": [
+        "industrial.tmj",
+        "food.tmj",
+        "farm.tmj",
+        "farm.tmx"
+    ]
+}
