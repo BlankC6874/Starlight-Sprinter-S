@@ -1,7 +1,9 @@
 **Starlight Sprinter S**
 
-A 2-D pixel-art platformer game using Arcade Phsyics in Phaser.
+A 2-D pixel-art platformer game using Arcade Physics in Phaser.
 Visual assets courtesy of [Kenny Assets](https://kenney.nl/assets), with gratitude.
+**Please wait a few seconds while loading the scene**
+
 **Update 6/12/24:**
 1. Added enemy avatars that will patrol around the map.
 2. Added HP system that will deduct or grant under certain circumstances.
@@ -12,6 +14,9 @@ Visual assets courtesy of [Kenny Assets](https://kenney.nl/assets), with gratitu
 2. Once you collect all coins/gas in current level, the key spawns (you go to next level, you MISS it)
 3. Once you collect all 3 keys, your fourth scene will be replaced with the **Bonus-level**
 4. Enjoy the new content!
+**Update 6/09/24:**
+1. Added Double Jump ability to the player's avatar
+2. Added sound effect for jumping
 
 Instruction for play:
 1. Use arrow keys to control player avatar's movement
