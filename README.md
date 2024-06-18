@@ -9,11 +9,13 @@ Visual assets courtesy of [Kenny Assets](https://kenney.nl/assets), with gratitu
 2. Added HP system that will deduct or grant under certain circumstances.
 3. Now the game will stop when HP is too low and will restart when pressing R key
 4. Added heart object and can gain HP by collecting it.
+
 **Update 6/11/24:**
 1. Added 3 different keys that are collectible in Farm, Food, Industrial but invisible at first
 2. Once you collect all coins/gas in current level, the key spawns (you go to next level, you MISS it)
 3. Once you collect all 3 keys, your fourth scene will be replaced with the **Bonus-level**
 4. Enjoy the new content!
+
 **Update 6/09/24:**
 1. Added Double Jump ability to the player's avatar
 2. Added sound effect for jumping
